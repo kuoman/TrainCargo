@@ -25,13 +25,20 @@ namespace TrainCargoTests
             Manifest manifest = new();
             manifest.TotalFlatCars().Should().Be(3);
         }
+
+        [TestMethod]
+        public void ShouldGet4TankerCars()
+        {
+            Manifest manifest = new();
+            manifest.TotalTankerCars().Should().Be(4);
+        }
     }
 
     public class Manifest
     {
         public int TotalCars()
         {
-            return 10;
+            return TotalBoxCars() + TotalFlatCars() + TotalTankerCars();
         }
 
         public int TotalBoxCars()
@@ -42,6 +49,11 @@ namespace TrainCargoTests
         public int TotalFlatCars()
         {
             return 3;
+        }
+
+        public int TotalTankerCars()
+        {
+            return 4;
         }
     }
 }
