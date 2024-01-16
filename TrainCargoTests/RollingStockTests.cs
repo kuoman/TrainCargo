@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using static TrainCargoTests.RollingStockTests;
 
 namespace TrainCargoTests
 {
@@ -45,45 +46,65 @@ namespace TrainCargoTests
             rollingStock.IsType("flat").Should().BeTrue();
         }
 
-        public class RollingStock
+        [TestMethod]
+        public void ShouldReturnTrueForGivenCity()
         {
-            private readonly string _type;
-            private readonly string _city;
-            private readonly string _industry;
+            FlatCar rollingStock = new("a", "1");
 
-            public RollingStock(string type, string city, string industry)
-            {
-                _type = type;
-                _city = city;
-                _industry = industry;
-            }
-
-            public bool IsType(string type)
-            {
-                return type.ToLower() == _type;
-            }
+            rollingStock.IsCity("a");
         }
 
-        public class TankerCar : RollingStock
+        [TestMethod]
+        public void ShouldReturnTrueForGivenCityIgnoreCase()
         {
-            public TankerCar(string city, string industry) : base("tanker", city, industry)
-            {
-            }
+            FlatCar rollingStock = new("a", "1");
+
+            rollingStock.IsCity("Axx");
         }
 
-        public class FreightCar : RollingStock
+    }
+
+    public class RollingStock
+    {
+        private readonly string _type;
+        private readonly string _city;
+        private readonly string _industry;
+
+        public RollingStock(string type, string city, string industry)
         {
-            public FreightCar(string city, string industry) : base("freight", city, industry)
-            {
-            }
+            _type = type;
+            _city = city;
+            _industry = industry;
         }
 
-        public class FlatCar : RollingStock
+        public bool IsType(string type)
         {
-            public FlatCar(string city, string industry) : base("flat", city, industry)
-            {
-            }
+            return type.ToLower() == _type;
         }
+        public bool IsCity(string city)
+        {
+            return city == _city;
+        }
+    }
 
+    public class TankerCar : RollingStock
+    {
+        public TankerCar(string city, string industry) : base("tanker", city, industry)
+        {
+        }
+    }
+
+    public class FreightCar : RollingStock
+    {
+        public FreightCar(string city, string industry) : base("freight", city, industry)
+        {
+        }
+    }
+
+    public class FlatCar : RollingStock
+    {
+        public FlatCar(string city, string industry) : base("flat", city, industry)
+        {
+        }
     }
 }
