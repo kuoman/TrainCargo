@@ -3,7 +3,7 @@
 namespace TrainCargoTests
 {
     [TestClass]
-    public class FreightTests
+    public class RollingStockTests
     {
         [TestMethod]
         public void ShouldReturnTrueForTanker()
@@ -21,13 +21,13 @@ namespace TrainCargoTests
             tankerCar.IsType("box").Should().BeFalse();
         }
 
-        public class Freight
+        public class RollingStock
         {
             private readonly string _type;
             private readonly string _city;
             private readonly string _industry;
 
-            public Freight(string type, string city, string industry)
+            public RollingStock(string type, string city, string industry)
             {
                 _type = type;
                 _city = city;
@@ -40,7 +40,7 @@ namespace TrainCargoTests
             }
         }
 
-        public class TankerCar : Freight
+        public class TankerCar : RollingStock
         {
             public TankerCar(string city, string industry) : base("tanker", city, industry)
             {
