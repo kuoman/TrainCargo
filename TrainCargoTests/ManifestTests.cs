@@ -72,7 +72,7 @@ namespace TrainCargoTests
             return train.Count(x => x.IsType("tanker"));
         }
 
-        List<RollingStock> train = new List<RollingStock>();
+        List<RollingStock> train = new();
         public void Add(RollingStock car)
         {
             train.Add(car);    
