@@ -48,6 +48,21 @@ namespace TrainCargoTests
             manifest.Add(new TankerCar("a", "1"));
             manifest.TotalTankerCars().Should().Be(4);
         }
+
+        [TestMethod]
+        public void ShouldReturnCarsForCity()
+        {
+            Manifest manifest = new();
+            manifest.Add(new TankerCar("b", "1"));
+            manifest.Add(new FreightCar("b", "1"));
+            manifest.Add(new FreightCar("a", "1"));
+            manifest.Add(new FlatCar("b", "1"));
+            manifest.Add(new FlatCar("a", "1"));
+
+            List<RollingStock> cityAStock = manifest.RollingStockForCity("a");
+            cityAStock.Count.Should().Be(2);
+        }
+
     }
 
     public class Manifest
@@ -59,23 +74,28 @@ namespace TrainCargoTests
 
         public int TotalBoxCars()
         {
-            return train.Count(x => x.IsType("freight"));
+            return _train.Count(x => x.IsType("freight"));
         }
 
         public int TotalFlatCars()
         {
-            return train.Count(x => x.IsType("flat"));
+            return _train.Count(x => x.IsType("flat"));
         }
 
         public int TotalTankerCars()
         {
-            return train.Count(x => x.IsType("tanker"));
+            return _train.Count(x => x.IsType("tanker"));
         }
 
-        List<RollingStock> train = new();
+        readonly List<RollingStock> _train = new();
         public void Add(RollingStock car)
         {
-            train.Add(car);    
+            _train.Add(car);    
+        }
+
+        public List<RollingStock> RollingStockForCity(string city)
+        {
+            return _train.Where(x => x.IsCity(city)).ToList();
         }
     }
 

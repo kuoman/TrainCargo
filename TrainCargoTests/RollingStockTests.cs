@@ -77,7 +77,6 @@ namespace TrainCargoTests
 
             rollingStock.IsIndustry("C").Should().BeTrue(); ;
         }
-
     }
 
     public class RollingStock
