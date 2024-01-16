@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using FluentAssertions;
 
 namespace TrainCargoTests
@@ -34,6 +35,7 @@ namespace TrainCargoTests
         }
     }
 
+
     public class Manifest
     {
         public int TotalCars()
@@ -55,5 +57,8 @@ namespace TrainCargoTests
         {
             return 4;
         }
+
     }
+
+
 }
