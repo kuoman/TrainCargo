@@ -27,18 +27,18 @@ namespace TrainCargoTests
 
     public class City
     {
-        private readonly string? _name;
+        private readonly string _city;
         private readonly Industry _industry;
 
-        public City(string? name, Industry industry)
+        public City(string city, Industry industry)
         {
-            _name = name;
+            _city = city;
             _industry = industry;
         }
 
         public List<RollingStock> GetCars()
         {
-            return _industry.GetCars(_name);
+            return _industry.GetCars(_city);
         }
     }
 }
