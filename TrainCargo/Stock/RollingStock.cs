@@ -3,8 +3,8 @@
 public class RollingStock
 {
     private readonly string _type;
-    private readonly string? _city;
-    private readonly string? _industry;
+    private readonly string _city;
+    private readonly string _industry;
 
     private RollingStock(string type, string city, string industry)
     {
@@ -13,10 +13,7 @@ public class RollingStock
         _industry = industry;
     }
 
-    public RollingStock(string type)
-    {
-        _type = type;
-    }
+    public RollingStock(string type): this(type, "", "") { }
 
     public bool IsType(string type)
     {
