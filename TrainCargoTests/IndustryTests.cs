@@ -15,7 +15,17 @@ namespace TrainCargoTests
         {
             Industry industry = new Industry("1");
 
-            List<RollingStock> cars = industry.GetCars();
+            List<RollingStock> cars = industry.GetCars("a");
+
+            cars.Should().HaveCount(2);
+        }
+
+        [TestMethod]
+        public void ShouldReturnRollingStock2()
+        {
+            Industry industry = new Industry("1");
+
+            List<RollingStock> cars = industry.GetCars("a");
 
             cars.Should().HaveCount(2);
         }
@@ -30,12 +40,12 @@ namespace TrainCargoTests
             _industry = industry;
         }
 
-        public List<RollingStock> GetCars()
+        public List<RollingStock> GetCars(string name)
         {
             List<RollingStock> rollingStocks = new List<RollingStock>();
             
-            rollingStocks.Add(new FlatCar("a", _industry));
-            rollingStocks.Add(new FlatCar("a", _industry));
+            rollingStocks.Add(new FlatCar(name, _industry));
+            rollingStocks.Add(new FlatCar(name, _industry));
             
             return rollingStocks;
         }
