@@ -47,14 +47,7 @@ namespace TrainCargoTests
 
         public List<RollingStock> GetCars(string city)
         {
-            List<RollingStock> rollingStocks = new();
-            
-            foreach (RollingStock stock in _rollingStocks)
-            {
-                rollingStocks.Add(stock.AddNew(city, _industry));
-            }
-            
-            return rollingStocks;
+            return _rollingStocks.Select(stock => stock.AddNew(city, _industry)).ToList();
         }
     }
 }
