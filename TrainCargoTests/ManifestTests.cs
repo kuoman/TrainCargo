@@ -9,11 +9,21 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldGetTotalCars()
         {
-            Manifest manifest = new();
+            List<RollingStock> lumberRollingStock = new()
+            {
+                new FlatCar(),
+                new FlatCar(),
+                new FlatCar()
+            };
+            Industry mill1 = new("mill1", lumberRollingStock);
+            
+            List<Industry> industries = new() { mill1 };
 
-            manifest.Add(new FreightCar());
-            manifest.Add(new FlatCar());
-            manifest.Add(new TankerCar());
+            City cityA = new("a", industries);
+            
+            List<City> cities = new () { cityA };
+
+            Manifest manifest = new(cities);
 
             manifest.TotalCars().Should().Be(3);
         }
@@ -21,52 +31,131 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldGet3BoxCars()
         {
-            Manifest manifest = new();
-            manifest.Add(new FreightCar());
-            manifest.Add(new FreightCar());
-            manifest.Add(new FreightCar());
+            List<RollingStock> freightStock = new()
+            {
+                new FreightCar(),
+                new FreightCar(),
+                new FreightCar()
+            };
+            Industry box1 = new("box1", freightStock);
+
+            List<Industry> industriesB = new() { box1 };
+
+            City cityB = new("b", industriesB);
+
+            List<City> cities = new() { cityB };
+
+            Manifest manifest = new(cities);
+
             manifest.TotalBoxCars().Should().Be(3);
         }
 
         [TestMethod]
         public void ShouldGet3FlatCars()
         {
-            Manifest manifest = new();
-            manifest.Add(new FlatCar());
-            manifest.Add(new FlatCar());
-            manifest.Add(new FlatCar());
+            List<RollingStock> lumberRollingStock = new()
+            {
+                new FlatCar(),
+                new FlatCar(),
+                new FlatCar()
+            };
+            Industry mill1 = new("mill1", lumberRollingStock);
+
+            List<Industry> industries = new() { mill1 };
+
+            City cityA = new("a", industries);
+
+            List<City> cities = new() { cityA };
+
+            Manifest manifest = new(cities);
             manifest.TotalFlatCars().Should().Be(3);
         }
 
         [TestMethod]
         public void ShouldGet4TankerCars()
         {
-            Manifest manifest = new(); 
-            manifest.Add(new TankerCar());
-            manifest.Add(new TankerCar());
-            manifest.Add(new TankerCar());
-            manifest.Add(new TankerCar());
+            List<RollingStock> oilStock = new()
+            {
+                new TankerCar(),
+                new TankerCar(),
+                new TankerCar(),
+                new TankerCar()
+            };
+            Industry oil1 = new("oil1", oilStock);
+
+            List<Industry> industriesC = new() { oil1 };
+
+            City cityC = new("c", industriesC);
+
+            List<City> cities = new() { cityC };
+
+            Manifest manifest = new(cities);
+
             manifest.TotalTankerCars().Should().Be(4);
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void ShouldReturnCarsForCity()
         {
-            Manifest manifest = new();
-            manifest.Add(new TankerCar("b", "1"));
-            manifest.Add(new FreightCar("b", "1"));
-            manifest.Add(new FreightCar("a", "1"));
-            manifest.Add(new FlatCar("b", "1"));
-            manifest.Add(new FlatCar("a", "1"));
+            List<RollingStock> lumberRollingStock = new()
+            {
+                new FlatCar(),
+                new FlatCar()
+            };
+            Industry mill1 = new("mill1", lumberRollingStock);
+
+            List<Industry> industriesA = new() { mill1 };
+
+            City cityA = new("a", industriesA);
+
+            List<RollingStock> freightStock = new()
+            {
+                new FreightCar(),
+                new FreightCar(),
+                new FreightCar()
+            };
+            Industry box1 = new("box1", freightStock);
+
+            List<Industry> industriesB = new() { box1 };
+
+            City cityB = new("b", industriesB);
+            
+            List<RollingStock> oilStock = new()
+            {
+                new TankerCar(),
+                new TankerCar(),
+                new TankerCar()
+            };
+            Industry oil1 = new("oil1", oilStock);
+            
+            List<Industry> industriesC = new() { oil1 };
+
+            City cityC = new("c", industriesC);
+
+            List<City> cities = new()
+            {
+                cityA,
+                cityB,
+                cityC
+            };
+
+            Manifest manifest = new(cities);
+
 
             List<RollingStock> cityAStock = manifest.RollingStockForCity("a");
             cityAStock.Count.Should().Be(2);
-        }*/
-
+        }
     }
 
     public class Manifest
     {
+        private readonly List<City> _cities;
+
+        public Manifest(List<City> cities)
+        {
+            _cities = cities;
+        }
+
         public int TotalCars()
         {
             return TotalBoxCars() + TotalFlatCars() + TotalTankerCars();
@@ -74,30 +163,34 @@ namespace TrainCargoTests
 
         public int TotalBoxCars()
         {
-            return _train.Count(x => x.IsType("freight"));
+            return GetStockCars().Count(x => x.IsType("freight"));
         }
 
         public int TotalFlatCars()
         {
-            return _train.Count(x => x.IsType("flat"));
+            return GetStockCars().Count(x => x.IsType("flat"));
         }
 
         public int TotalTankerCars()
         {
-            return _train.Count(x => x.IsType("tanker"));
-        }
-
-        readonly List<RollingStock> _train = new();
-        public void Add(RollingStock car)
-        {
-            _train.Add(car);    
+            return GetStockCars().Count(x => x.IsType("tanker"));
         }
 
         public List<RollingStock> RollingStockForCity(string city)
         {
-            return _train.Where(x => x.IsCity(city)).ToList();
+            return GetStockCars().Where(x => x.IsCity(city)).ToList();
         }
+        private List<RollingStock> GetStockCars()
+        {
+            List<RollingStock> stock = new();
+
+            foreach (City city in _cities)
+            {
+                stock.AddRange(city.GetCars());
+            }
+
+            return stock;
+        }
+
     }
-
-
 }

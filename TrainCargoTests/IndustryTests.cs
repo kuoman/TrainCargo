@@ -8,7 +8,6 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnRollingStock()
         {
-
             List<RollingStock> rollingStocks = new();
             rollingStocks.Add(new FlatCar());
             rollingStocks.Add(new FlatCar());

@@ -14,10 +14,11 @@ namespace TrainCargoTests
                 new FreightCar(),
                 new TankerCar()
             };
-            
-            Industry industry = new("1", rollingStocks);
 
-            City city = new("a", industry);
+            List<Industry> industries = new();
+            industries.Add(new("1", rollingStocks));
+
+            City city = new("a", industries);
 
             List<RollingStock> trainCars = city.GetCars();
 
@@ -28,17 +29,24 @@ namespace TrainCargoTests
     public class City
     {
         private readonly string _city;
-        private readonly Industry _industry;
+        private readonly List<Industry> _industries;
 
-        public City(string city, Industry industry)
+        public City(string city, List<Industry> industries)
         {
             _city = city;
-            _industry = industry;
+            _industries = industries;
         }
 
         public List<RollingStock> GetCars()
         {
-            return _industry.GetCars(_city);
+            List<RollingStock> stock = new();
+
+            foreach (Industry industry in _industries)
+            {
+                stock.AddRange(industry.GetCars(_city));
+            }
+            
+            return stock;
         }
     }
 }
