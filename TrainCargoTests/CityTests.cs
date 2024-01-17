@@ -8,7 +8,7 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnListOfRollingStock()
         {
-            City city = new City("a", null);
+            City city = new("a", null);
 
             List<RollingStock> trainCars = city.GetCars();
 
@@ -20,7 +20,7 @@ namespace TrainCargoTests
         {
             Industry industry = new("1");
 
-            City city = new City("a", industry);
+            City city = new("a", industry);
 
             List<RollingStock> trainCars = city.GetCars();
 
@@ -44,7 +44,7 @@ namespace TrainCargoTests
             if (_industry == null)
             {
 
-                List<RollingStock> rollingStocks = new List<RollingStock>
+                List<RollingStock> rollingStocks = new()
                 {
                     new FlatCar(_name, "1"),
                     new FreightCar(_name, "2"),

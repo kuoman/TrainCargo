@@ -50,7 +50,7 @@ namespace TrainCargoTests
         {
             FlatCar rollingStock = new("a", "1");
 
-            rollingStock.IsCity("a").Should().BeTrue(); ;
+            rollingStock.IsCity("a").Should().BeTrue(); 
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace TrainCargoTests
         {
             FlatCar rollingStock = new("a", "1");
 
-            rollingStock.IsCity("A").Should().BeTrue(); ;
+            rollingStock.IsCity("A").Should().BeTrue(); 
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace TrainCargoTests
         {
             FlatCar rollingStock = new("a", "c");
 
-            rollingStock.IsIndustry("c").Should().BeTrue(); ;
+            rollingStock.IsIndustry("c").Should().BeTrue(); 
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace TrainCargoTests
         {
             FlatCar rollingStock = new("a", "c");
 
-            rollingStock.IsIndustry("C").Should().BeTrue(); ;
+            rollingStock.IsIndustry("C").Should().BeTrue(); 
         }
     }
 
