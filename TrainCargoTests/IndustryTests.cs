@@ -8,9 +8,11 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnRollingStock()
         {
-            List<RollingStock> rollingStocks = new();
-            rollingStocks.Add(new FlatCar());
-            rollingStocks.Add(new FlatCar());
+            List<RollingStock> rollingStocks = new()
+            {
+                new FlatCar(),
+                new FlatCar()
+            };
 
             Industry industry = new("1", rollingStocks);
             
@@ -22,10 +24,12 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnRollingStock2()
         {
-            List<RollingStock> rollingStocks = new();
-            rollingStocks.Add(new FlatCar());
-            rollingStocks.Add(new FlatCar());
-            
+            List<RollingStock> rollingStocks = new()
+            {
+                new FlatCar(),
+                new FlatCar()
+            };
+
             Industry industry = new("1", rollingStocks);
 
             List<RollingStock> cars = industry.GetCars("a");
