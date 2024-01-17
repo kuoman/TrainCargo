@@ -8,31 +8,35 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnTrueForTanker()
         {
-            TankerCar tankerCar = new("a", "1");
+            TankerCar rollingStock = new();
+            rollingStock.AddNew("a", "1");
 
-            tankerCar.IsType("tanker").Should().BeTrue();
+            rollingStock.IsType("tanker").Should().BeTrue();
         }
 
         [TestMethod]
         public void ShouldReturnFalseForNonTanker()
         {
-            TankerCar tankerCar = new("a", "1");
+            TankerCar rollingStock = new();
+            rollingStock.AddNew("a", "1");
 
-            tankerCar.IsType("box").Should().BeFalse();
+            rollingStock.IsType("box").Should().BeFalse();
         }
 
         [TestMethod]
         public void ShouldIgnoreCase()
         {
-            TankerCar tankerCar = new("a", "1");
+            TankerCar rollingStock = new();
+            rollingStock.AddNew("a", "1");
 
-            tankerCar.IsType("TANKER").Should().BeTrue();
+            rollingStock.IsType("TANKER").Should().BeTrue();
         }
 
         [TestMethod]
         public void ShouldReturnTrueForFreight()
         {
-            FreightCar rollingStock = new("a", "1");
+            FreightCar rollingStock = new();
+            rollingStock.AddNew("a", "1");
 
             rollingStock.IsType("freight").Should().BeTrue();
         }
@@ -40,7 +44,9 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnTrueForFlat()
         {
-            FlatCar rollingStock = new("a", "1");
+            FlatCar rollingStock = new();
+
+            rollingStock.AddNew("a", "1");
 
             rollingStock.IsType("flat").Should().BeTrue();
         }
@@ -48,47 +54,57 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnTrueForGivenCity()
         {
-            FlatCar rollingStock = new("a", "1");
+            FlatCar rollingStock = new();
+            
+            RollingStock newStock = rollingStock.AddNew("a", "1");
 
-            rollingStock.IsCity("a").Should().BeTrue(); 
+            newStock.IsCity("a").Should().BeTrue(); 
         }
 
         [TestMethod]
         public void ShouldReturnTrueForGivenCityIgnoreCase()
         {
-            FlatCar rollingStock = new("a", "1");
+            FlatCar rollingStock = new();
+            RollingStock newStock = rollingStock.AddNew("a", "1");
 
-            rollingStock.IsCity("A").Should().BeTrue(); 
+            newStock.IsCity("A").Should().BeTrue(); 
         }
 
         [TestMethod]
         public void ShouldReturnTrueForGivenIndustry()
         {
-            FlatCar rollingStock = new("a", "c");
+            FlatCar rollingStock = new();
+            RollingStock newStock = rollingStock.AddNew("a", "c");
 
-            rollingStock.IsIndustry("c").Should().BeTrue(); 
+            newStock.IsIndustry("c").Should().BeTrue(); 
         }
 
         [TestMethod]
         public void ShouldReturnTrueForGivenIndustryIgnoreCase()
         {
-            FlatCar rollingStock = new("a", "c");
+            FlatCar rollingStock = new();
+            RollingStock newStock = rollingStock.AddNew("a", "c");
 
-            rollingStock.IsIndustry("C").Should().BeTrue(); 
+            newStock.IsIndustry("C").Should().BeTrue(); 
         }
     }
 
     public class RollingStock
     {
         private readonly string _type;
-        private readonly string _city;
-        private readonly string _industry;
+        private readonly string? _city;
+        private readonly string? _industry;
 
-        public RollingStock(string type, string city, string industry)
+        private RollingStock(string type, string city, string industry)
         {
             _type = type;
             _city = city;
             _industry = industry;
+        }
+
+        public RollingStock(string type)
+        {
+            _type = type;
         }
 
         public bool IsType(string type)
@@ -103,25 +119,31 @@ namespace TrainCargoTests
         {
             return industry.ToLower() == _industry;
         }
+
+        public RollingStock AddNew(string city, string industry)
+        {
+            return new RollingStock(_type, city, industry );
+        }
+
     }
 
     public class TankerCar : RollingStock
     {
-        public TankerCar(string city, string industry) : base("tanker", city, industry)
+        public TankerCar() : base("tanker")
         {
         }
     }
 
     public class FreightCar : RollingStock
     {
-        public FreightCar(string city, string industry) : base("freight", city, industry)
+        public FreightCar() : base("freight")
         {
         }
     }
 
     public class FlatCar : RollingStock
     {
-        public FlatCar(string city, string industry) : base("flat", city, industry)
+        public FlatCar() : base("flat")
         {
         }
     }

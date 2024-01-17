@@ -8,8 +8,13 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnRollingStock()
         {
-            Industry industry = new("1");
 
+            List<RollingStock> rollingStocks = new();
+            rollingStocks.Add(new FlatCar());
+            rollingStocks.Add(new FlatCar());
+
+            Industry industry = new("1", rollingStocks);
+            
             List<RollingStock> cars = industry.GetCars("a");
 
             cars.Should().HaveCount(2);
@@ -18,7 +23,11 @@ namespace TrainCargoTests
         [TestMethod]
         public void ShouldReturnRollingStock2()
         {
-            Industry industry = new("1");
+            List<RollingStock> rollingStocks = new();
+            rollingStocks.Add(new FlatCar());
+            rollingStocks.Add(new FlatCar());
+            
+            Industry industry = new("1", rollingStocks);
 
             List<RollingStock> cars = industry.GetCars("a");
 
@@ -29,18 +38,22 @@ namespace TrainCargoTests
     public class Industry
     {
         private readonly string _industry;
+        private readonly List<RollingStock> _rollingStocks;
 
-        public Industry(string industry)
+        public Industry(string industry, List<RollingStock> rollingStocks)
         {
             _industry = industry;
+            _rollingStocks = rollingStocks;
         }
 
-        public List<RollingStock> GetCars(string name)
+        public List<RollingStock> GetCars(string city)
         {
             List<RollingStock> rollingStocks = new();
             
-            rollingStocks.Add(new FlatCar(name, _industry));
-            rollingStocks.Add(new FlatCar(name, _industry));
+            foreach (RollingStock stock in _rollingStocks)
+            {
+                rollingStocks.Add(stock.AddNew(city, _industry));
+            }
             
             return rollingStocks;
         }
