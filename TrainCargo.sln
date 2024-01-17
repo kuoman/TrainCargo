@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainCargoTests", "TrainCargoTests\TrainCargoTests.csproj", "{67F3B6BF-5F47-44B5-85A6-BC7492814B2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainCargoTests", "TrainCargoTests\TrainCargoTests.csproj", "{67F3B6BF-5F47-44B5-85A6-BC7492814B2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainCargo", "TrainCargo\TrainCargo.csproj", "{990080DD-C1A2-4340-A0C3-6A84DA9A5863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{67F3B6BF-5F47-44B5-85A6-BC7492814B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F3B6BF-5F47-44B5-85A6-BC7492814B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F3B6BF-5F47-44B5-85A6-BC7492814B2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990080DD-C1A2-4340-A0C3-6A84DA9A5863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990080DD-C1A2-4340-A0C3-6A84DA9A5863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990080DD-C1A2-4340-A0C3-6A84DA9A5863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990080DD-C1A2-4340-A0C3-6A84DA9A5863}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

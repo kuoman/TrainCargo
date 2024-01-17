@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using TrainCargo.Stock;
 
 namespace TrainCargoTests
 {
@@ -86,65 +87,6 @@ namespace TrainCargoTests
             RollingStock newStock = rollingStock.AddNew("a", "c");
 
             newStock.IsIndustry("C").Should().BeTrue(); 
-        }
-    }
-
-    public class RollingStock
-    {
-        private readonly string _type;
-        private readonly string? _city;
-        private readonly string? _industry;
-
-        private RollingStock(string type, string city, string industry)
-        {
-            _type = type;
-            _city = city;
-            _industry = industry;
-        }
-
-        public RollingStock(string type)
-        {
-            _type = type;
-        }
-
-        public bool IsType(string type)
-        {
-            return type.ToLower() == _type;
-        }
-        public bool IsCity(string city)
-        {
-            return city.ToLower() == _city;
-        }
-        public bool IsIndustry(string industry)
-        {
-            return industry.ToLower() == _industry;
-        }
-
-        public RollingStock AddNew(string city, string industry)
-        {
-            return new RollingStock(_type, city, industry );
-        }
-
-    }
-
-    public class TankerCar : RollingStock
-    {
-        public TankerCar() : base("tanker")
-        {
-        }
-    }
-
-    public class FreightCar : RollingStock
-    {
-        public FreightCar() : base("freight")
-        {
-        }
-    }
-
-    public class FlatCar : RollingStock
-    {
-        public FlatCar() : base("flat")
-        {
         }
     }
 }

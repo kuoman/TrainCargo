@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using TrainCargo;
+using TrainCargo.Stock;
 
 namespace TrainCargoTests
 {
@@ -22,27 +24,6 @@ namespace TrainCargoTests
             List<RollingStock> trainCars = city.GetCars();
 
             trainCars.Should().HaveCount(3);
-        }
-    }
-
-    public class City
-    {
-        private readonly string _city;
-        private readonly List<Industry> _industries;
-
-        public City(string city, List<Industry> industries)
-        {
-            _city = city;
-            _industries = industries;
-        }
-
-        public List<RollingStock> GetCars()
-        {
-            List<RollingStock> stock = new();
-
-            _industries.ForEach(x => stock.AddRange(x.GetCars(_city)));
-            
-            return stock;
         }
     }
 }
