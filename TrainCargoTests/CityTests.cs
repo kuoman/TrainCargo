@@ -15,8 +15,7 @@ namespace TrainCargoTests
                 new TankerCar()
             };
 
-            List<Industry> industries = new();
-            industries.Add(new("1", rollingStocks));
+            List<Industry> industries = new() { new("1", rollingStocks) };
 
             City city = new("a", industries);
 
