@@ -40,10 +40,7 @@ namespace TrainCargoTests
         {
             List<RollingStock> stock = new();
 
-            foreach (Industry industry in _industries)
-            {
-                stock.AddRange(industry.GetCars(_city));
-            }
+            _industries.ForEach(x => stock.AddRange(x.GetCars(_city)));
             
             return stock;
         }
